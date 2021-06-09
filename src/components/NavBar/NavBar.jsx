@@ -14,11 +14,15 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import CarWidget from './CarWidget';
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
         background: '#3D5A80',
+    },
+    appBar: {
+        backgroundColor: '#3D5A80',
     },
     grow: {
         flexGrow: 1,
@@ -41,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const NavBar = () => {
+const NavBar = () => {
     const classes = useStyles();
     const theme = useTheme();
 
@@ -59,7 +63,7 @@ export const NavBar = () => {
     return (
         <div className={classes.root}>
             <AppBar 
-                position="fixed"
+                position="sticky"
                 className={clsx(classes.appBar, {
                 [classes.appBarShift]: open,
                 })}
@@ -89,6 +93,7 @@ export const NavBar = () => {
                             Contacto
                         </Button>
                     </div>
+                    <CarWidget />  
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -117,3 +122,5 @@ export const NavBar = () => {
         </div>
     )
 }
+
+export default NavBar;
