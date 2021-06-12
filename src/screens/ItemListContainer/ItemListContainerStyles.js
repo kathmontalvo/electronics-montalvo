@@ -7,7 +7,7 @@ export const itemListContainerStyles = (theme) => {
         container: {
             backgroundColor: '#E0FBFC',
             display: 'flex',
-            minHeight: '100vh',
+            minHeight: 'calc(100vh - 112px)',
             padding: '24px',
             '& p': {
                 ...commonStyles,
