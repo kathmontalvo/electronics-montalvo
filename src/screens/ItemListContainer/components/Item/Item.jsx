@@ -14,16 +14,16 @@ const Item = (props) => {
 
     const classes = useStyles();
 
-    const { title, description, image, price } = props;
+    const { title, description, img, price } = props;
     
     return (
-        <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
             <Card className={classes.card}>
                 <CardMedia 
                     component="img"
                     title="laptop"
                     alt= { description }
-                    image={ image }
+                    image={ img }
                     className={classes.cardImg}
                 />
                 <CardContent>
