@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import AppBar from '@material-ui/core/AppBar';
+import Container from '@material-ui/core/Container';
 import Drawer from '@material-ui/core/Drawer';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -68,33 +69,35 @@ const NavBar = () => {
                 [classes.appBarShift]: open,
                 })}
             >
-                <Toolbar>
-                    <IconButton
-                        edge="start"
-                        className={classes.menuButton}
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography className={classes.title} variant="h6" noWrap>
-                        Electronics
-                    </Typography>
-                    <div className={classes.grow} />
-                    <div className={classes.sectionDesktop}>
-                        <Button color="inherit">
-                            Catálogo
-                        </Button>
-                        <Button color="inherit">
-                            Sobre Nosotros
-                        </Button>
-                        <Button color="inherit">
-                            Contacto
-                        </Button>
-                    </div>
-                    <CarWidget />  
-                </Toolbar>
+                <Container>
+                    <Toolbar>
+                        <IconButton
+                            edge="start"
+                            className={classes.menuButton}
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={handleDrawerOpen}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography className={classes.title} variant="h6" noWrap>
+                            Electronics
+                        </Typography>
+                        <div className={classes.grow} />
+                        <div className={classes.sectionDesktop}>
+                            <Button color="inherit">
+                                Catálogo
+                            </Button>
+                            <Button color="inherit">
+                                Sobre Nosotros
+                            </Button>
+                            <Button color="inherit">
+                                Contacto
+                            </Button>
+                        </div>
+                        <CarWidget />  
+                    </Toolbar>
+                </Container>
             </AppBar>
             <Drawer
                 className={classes.drawer}

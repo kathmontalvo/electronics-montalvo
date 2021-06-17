@@ -9,10 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import Typography from '@material-ui/core/Typography';
-import { CardContent, CardMedia } from '@material-ui/core';
 import { AddShoppingCart } from '@material-ui/icons';
-
-import laptopImg from '../../assets/laptop.png'
 
 const useStyles = makeStyles(theme => itemCountSyles(theme))
 
@@ -32,21 +29,7 @@ const ItemCount = (props) => {
 
     return (
         <div>
-            <Card className={classes.card}>
-                <CardMedia 
-                    component="img"
-                    title="laptop"
-                    alt="laptop 15.6 pulgadas"
-                    image={laptopImg}
-                />
-                <CardContent>
-                    <Typography variant="h5">
-                        Laptop 15.6"
-                    </Typography>
-                    <Typography variant="body1" color="textSecondary">
-                        Este producto no tiene descripción.
-                    </Typography>
-                </CardContent>
+            <Card className={classes.card} variant="outlined">
                 <CardActions className={classes.cardButtons}>
                     <IconButton 
                         onClick={ decrement } 
