@@ -1,7 +1,10 @@
 const ItemStyles = (theme) => {
     return ({
+        card: {
+            cursor: 'pointer',
+        },
         cardImg: {
-            minHeight: '230px',
+            height: '245px',
         },
         cardButtons: {
             justifyContent: 'space-between',

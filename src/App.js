@@ -1,14 +1,15 @@
 import React from 'react';
-import ItemListContainer from './screens/ItemListContainer/ItemListContainer';
-// import ItemDetailContainer from './screens/ItemDetailContainer/ItemDetailContainer';
+import { BrowserRouter } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar.jsx';
+import Router from './router/Router.jsx';
 
 const App = () => {
   return (
-    <div className="App" style={{width: 'calc(100vw - 17px)', backgroundColor: '#E0FBFC' }}>
-      <NavBar />
-      <ItemListContainer />
-      {/* <ItemDetailContainer /> */}
+    <div className="App" style={{backgroundColor: '#E0FBFC', minHeight: '100vh'}}>
+      <BrowserRouter>
+        <NavBar />
+        <Router />
+      </BrowserRouter> 
     </div>
   );
 }

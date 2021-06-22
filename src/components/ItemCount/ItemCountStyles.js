@@ -2,6 +2,7 @@ const ItemCountStyles = (theme) => {
     return ({
         card: {
             maxWidth: '300px',
+            marginBottom: '24px',
         },
         cardButtons: {
             justifyContent: 'space-between',

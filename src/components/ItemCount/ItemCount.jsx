@@ -28,40 +28,38 @@ const ItemCount = (props) => {
     };
 
     return (
-        <div>
-            <Card className={classes.card} variant="outlined">
-                <CardActions className={classes.cardButtons}>
-                    <IconButton 
-                        onClick={ decrement } 
-                        disabled={ counter === 0 ? true : false}
-                        className={classes.buttonIcon}
-                    >
-                        <RemoveCircleIcon/>
-                    </IconButton>
-                    <Typography variant="h6">
-                        {counter}
-                    </Typography>
-                    <IconButton 
-                        onClick={ increment } 
-                        disabled={ counter >= stock ? true : false}
-                        className={classes.buttonIcon}
-                    >
-                        <AddCircleIcon/>
-                    </IconButton>
-                </CardActions>
-                <CardActions className={classes.cardButtons}>
-                    <Button
-                        variant="contained"
-                        startIcon={<AddShoppingCart />}
-                        className={classes.mainButton}
-                        disabled={ counter === 0 ? true : false}
-                        onClick={ () => onAdd(counter) }
-                    >
-                        Agregar al carrito
-                    </Button>
-                </CardActions>
-            </Card>
-        </div>
+        <Card className={classes.card} variant="outlined">
+            <CardActions className={classes.cardButtons}>
+                <IconButton 
+                    onClick={ decrement } 
+                    disabled={ counter === 0 ? true : false}
+                    className={classes.buttonIcon}
+                >
+                    <RemoveCircleIcon/>
+                </IconButton>
+                <Typography variant="h6">
+                    {counter}
+                </Typography>
+                <IconButton 
+                    onClick={ increment } 
+                    disabled={ counter >= stock ? true : false}
+                    className={classes.buttonIcon}
+                >
+                    <AddCircleIcon/>
+                </IconButton>
+            </CardActions>
+            <CardActions className={classes.cardButtons}>
+                <Button
+                    variant="contained"
+                    startIcon={<AddShoppingCart />}
+                    className={classes.mainButton}
+                    disabled={ counter === 0 ? true : false}
+                    onClick={ () => onAdd(counter) }
+                >
+                    Agregar al carrito
+                </Button>
+            </CardActions>
+        </Card>
     )
 }
 

@@ -1,47 +1,34 @@
 import React, { useState, useEffect } from 'react';
-
+import { useParams } from 'react-router';
 import { makeStyles } from '@material-ui/core';
 import Container from '@material-ui/core/Container'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
 import itemDetailContainerStyles from './ItemDetailContainerStyles'
 import ItemDetail from './components/ItemDetail/ItemDetail';
-
-const itemData = {
-    result: {
-        id: "1",
-        title: "Laptop",
-        img: "../assets/laptop.png",
-        description: "Laptop tamaño 15.6 pulgadas",
-        price: "$450.00",
-        stock: "8",
-    }
-}
+import products from '../../services/service'
 
 const useStyles = makeStyles(theme => itemDetailContainerStyles(theme))
 
 const ItemDetailContainer = () => {
+
+    const { itemId } = useParams();
+
     const classes = useStyles();
     const [itemInfo, setItemInfo] = useState(undefined);
 
     const getItem = () => {
         const itemsPromise = new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve(itemData)
+                const productData = products.filter(product => product.id == itemId)
+                const [ data ] = productData;
+                resolve(data)
             }, 2000);
         })
 
         itemsPromise.then((data)=> {
-            setItemInfo(data.result)
+            setItemInfo(data)
         })
-    }
-
-    const addItemToCart = (qty) => {
-
-        Number(qty) === 1 
-        ? alert(`Se añadió ${qty} item al carrito!`)
-        : alert(`Se añadieron ${qty} items al carrito!`);  
-
     }
 
     useEffect(()=> {
@@ -53,11 +40,10 @@ const ItemDetailContainer = () => {
     return (
         <Container className={classes.root}>
             {
-                itemInfo ?
-                    <ItemDetail 
-                        onAdd = {addItemToCart}    
-                        {...itemInfo} 
-                    /> :
+                itemInfo 
+                    ?
+                    <ItemDetail {...itemInfo}/> 
+                    :
                     <section className={classes.progressContainer}>
                         <CircularProgress />
                     </section>

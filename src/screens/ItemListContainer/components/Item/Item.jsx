@@ -1,4 +1,6 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+
 import { makeStyles } from '@material-ui/core/styles';
 import itemSyles from './ItemStyles';
 
@@ -12,12 +14,13 @@ const useStyles = makeStyles(theme => itemSyles(theme))
 
 const Item = (props) => {
 
+    const history = useHistory();
     const classes = useStyles();
 
-    const { title, description, img, price } = props;
+    const { id, title, description, img, price } = props;
     
     return (
-        <Grid item xs={12} sm={6} md={4} lg={3}>
+        <Grid item xs={12} sm={6} md={4} lg={3} onClick={ ()=> history.push(`/items/${id}`)}>
             <Card className={classes.card}>
                 <CardMedia 
                     component="img"
