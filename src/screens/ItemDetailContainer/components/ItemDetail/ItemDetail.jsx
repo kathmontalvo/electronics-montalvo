@@ -1,23 +1,37 @@
-import React from 'react';
+import React,  { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Typography, Grid, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import ItemCount from '../../../../components/ItemCount/ItemCount'
 import itemDetailStyles from './ItemDetailStyles';
+import ItemConfirmation from '../ItemConfirmation/ItemConfirmation';
 
 const useStyles = makeStyles(theme => itemDetailStyles(theme))
 
 const ItemDetail = (props) => {
 
     const classes = useStyles();
+    const history = useHistory();
+
     const { img, price, title, description, stock } = props;
+    
+    const [confirmation, setConfirmation] = useState(false)
+    const [initialValue, setInitialValue] = useState("1")
+
 
     const addItemToCart = (qty) => {
-
-        Number(qty) === 1 
-        ? alert(`Se añadió ${qty} item al carrito!`)
-        : alert(`Se añadieron ${qty} items al carrito!`);  
-
+        alert('Se añadió tu producto al carrito.');
+        history.push('/cart')
     }
+
+    const showConfirmation = (qty) => {
+        setConfirmation(true);
+        setInitialValue(qty);
+    }
+
+    useEffect(() => {
+        console.log('hols');
+    }, [])
 
     return (
         <Grid container spacing={3} className={classes.productContainer}>
@@ -43,7 +57,9 @@ const ItemDetail = (props) => {
                         {price}
                     </Typography>
                 </Box>
-                <ItemCount stock={stock} initial="1" onAdd={addItemToCart}/>
+                { !confirmation ? 
+                    <ItemCount stock={stock} initial={initialValue} onAdd={showConfirmation}/> :
+                    <ItemConfirmation addToCart={() => addItemToCart(stock)} cancelShop={() => setConfirmation(false)} />}
             </Grid>
         </Grid>
     )
