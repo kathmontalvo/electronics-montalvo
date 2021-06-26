@@ -1,10 +1,11 @@
-import React,  { useState, useEffect } from 'react';
+import React,  { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Typography, Grid, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import ItemCount from '../../../../components/ItemCount/ItemCount'
 import itemDetailStyles from './ItemDetailStyles';
 import ItemConfirmation from '../ItemConfirmation/ItemConfirmation';
+import { CartContext } from '../../../../context/CartContext';
 
 const useStyles = makeStyles(theme => itemDetailStyles(theme))
 
@@ -12,8 +13,9 @@ const ItemDetail = (props) => {
 
     const classes = useStyles();
     const history = useHistory();
+    const { items, addItem, removeItem, isInCart } = useContext(CartContext);
 
-    const { img, price, title, description, stock } = props;
+    const { id: itemId, img, price, title, description, stock } = props;
     
     const [confirmation, setConfirmation] = useState(false)
     const [initialValue, setInitialValue] = useState("1")
@@ -27,11 +29,19 @@ const ItemDetail = (props) => {
     const showConfirmation = (qty) => {
         setConfirmation(true);
         setInitialValue(qty);
+        
+        addItem(props, qty)
+
+    }
+
+    const cancelConfirmation = () => {
+        removeItem(itemId);
+        setConfirmation(false)
     }
 
     useEffect(() => {
-        console.log('hols');
-    }, [])
+        console.log('items:', items);
+    }, [items])
 
     return (
         <Grid container spacing={3} className={classes.productContainer}>
@@ -59,7 +69,7 @@ const ItemDetail = (props) => {
                 </Box>
                 { !confirmation ? 
                     <ItemCount stock={stock} initial={initialValue} onAdd={showConfirmation}/> :
-                    <ItemConfirmation addToCart={() => addItemToCart(stock)} cancelShop={() => setConfirmation(false)} />}
+                    <ItemConfirmation addToCart={() => addItemToCart(stock)} cancelShop={cancelConfirmation} />}
             </Grid>
         </Grid>
     )
