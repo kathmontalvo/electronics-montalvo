@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Link } from 'react-router-dom'
 
@@ -15,6 +15,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import CarWidget from './components/CarWidget';
 import NavBarStyles from './NavBarStyles';
 import NavBarMobile from './components/NavBarMobile';
+
+import { CartContext } from '../../context/CartContext';
+
 
 const categories = [
     {
@@ -33,6 +36,8 @@ const NavBar = () => {
     const classes = useStyles();
 
     const [open, setOpen] = React.useState(false);
+    const { items } = useContext(CartContext);
+
 
     const handleDrawerOpen = () => {
       setOpen(true);
@@ -82,7 +87,9 @@ const NavBar = () => {
                             </Button>
                         ))}
                         </div>
-                        <CarWidget />  
+                        {
+                            items.length > 0 && <CarWidget items = {items} />  
+                        }
                     </Toolbar>
                 </Container>
             </AppBar>

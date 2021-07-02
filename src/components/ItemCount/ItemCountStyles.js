@@ -1,4 +1,13 @@
 const ItemCountStyles = (theme) => {
+
+    const buttonsStyles = {
+        width: '100%',
+        transition: '0.25s all ease-in-out',
+        '&:disabled': {
+            border: '1px solid #CECECE',
+        }
+    }
+
     return ({
         card: {
             maxWidth: '300px',
@@ -6,7 +15,7 @@ const ItemCountStyles = (theme) => {
         },
         cardButtons: {
             justifyContent: 'space-between',
-            padding: '16px',
+            padding: '6px 16px',
         },
         buttonIcon: {
             fontSize: '16px',
@@ -28,18 +37,24 @@ const ItemCountStyles = (theme) => {
             }
         },
         mainButton: {
-            width: '100%',
             backgroundColor: '#FFF',
-            color: '#EE6C4D',
             border: '1px solid #EE6C4D',
-            transition: '0.25s all ease-in-out',
+            color: '#EE6C4D',
+            ...buttonsStyles,
             '&:hover': {
                 backgroundColor: '#EE6C4D',
                 color: '#FFF',
                 transition: '0.25s all ease-in-out',
             },
-            '&:disabled': {
-                border: '1px solid #CECECE',
+        },
+        secondaryButton: {
+            backgroundColor: '#FFF',
+            border: '1px solid #3D5A80',
+            color: '#3D5A80',
+            ...buttonsStyles,
+            '&:hover': {
+                backgroundColor: '#3D5A80',
+                color: '#FFF',
             }
         }
     })

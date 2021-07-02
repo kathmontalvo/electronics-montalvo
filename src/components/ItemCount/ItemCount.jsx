@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import itemCountSyles from './ItemCountStyles';
 
@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import Typography from '@material-ui/core/Typography';
-import { AddShoppingCart } from '@material-ui/icons';
+import { AddShoppingCart, Delete } from '@material-ui/icons';
 
 const useStyles = makeStyles(theme => itemCountSyles(theme))
 
@@ -17,7 +17,7 @@ const ItemCount = (props) => {
 
     const classes = useStyles();
 
-    const { stock, initial, onAdd } = props;
+    const { stock, initial, onAdd, onRemove, currentCart=false } = props;
     const [counter, setCounter] = useState(Number(initial));
 
     const increment = () => {
@@ -26,6 +26,10 @@ const ItemCount = (props) => {
     const decrement = () => {
         counter > 0 && setCounter(counter - 1);
     };
+
+    useEffect(() => {
+        counter <= 0 && onRemove()
+    }, [counter])
 
     return (
         <Card className={classes.card} variant="outlined">
@@ -48,17 +52,31 @@ const ItemCount = (props) => {
                     <AddCircleIcon/>
                 </IconButton>
             </CardActions>
-            <CardActions className={classes.cardButtons}>
-                <Button
-                    variant="contained"
-                    startIcon={<AddShoppingCart />}
-                    className={classes.mainButton}
-                    disabled={ counter === 0 ? true : false}
-                    onClick={ () => onAdd(counter) }
-                >
-                    Agregar al carrito
-                </Button>
-            </CardActions>
+            {
+                !currentCart ?
+                <CardActions className={classes.cardButtons}>
+                    <Button
+                        variant="contained"
+                        startIcon={<AddShoppingCart />}
+                        className={classes.mainButton}
+                        disabled={ counter === 0 ? true : false}
+                        onClick={ () => onAdd(counter) }
+                    >
+                        Agregar al carrito
+                    </Button>
+                </CardActions> :
+                <CardActions className={classes.cardButtons}>
+                    <Button
+                        variant="outlined"
+                        startIcon={<Delete />}
+                        className={classes.secondaryButton}
+                        disabled={ counter === 0 ? true : false}
+                        onClick={ () => onRemove() }
+                    >
+                        Eliminar producto
+                    </Button>
+                </CardActions> 
+            }
         </Card>
     )
 }
