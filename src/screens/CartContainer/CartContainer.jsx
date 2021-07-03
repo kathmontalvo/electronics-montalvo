@@ -5,7 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core';
 
 import CartContainerStyles from './CartContainerSyles'
-import { CartContext } from '../../context/CartContext';
+import { CartContext } from '../../Context/CartContext';
 import CartItems from './components/CartItems/CartItems';
 
 const useStyles = makeStyles(theme => CartContainerStyles(theme))

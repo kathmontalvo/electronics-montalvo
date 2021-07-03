@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core';
 import ItemCount from '../../../../components/ItemCount/ItemCount'
 import itemDetailStyles from './ItemDetailStyles';
 import ItemConfirmation from '../ItemConfirmation/ItemConfirmation';
-import { CartContext } from '../../../../context/CartContext';
+import { CartContext } from '../../../../Context/CartContext';
 
 const useStyles = makeStyles(theme => itemDetailStyles(theme))
 

@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { itemListContainerStyles } from './ItemListContainerStyles';
 import ItemList from './components/ItemList/ItemList';
 import Container from '@material-ui/core/Container'
-import products from '../../services/service'
+import { database } from '../../Firebase/firebase';
 
 const useStyles = makeStyles((theme) => itemListContainerStyles(theme))
 
@@ -15,24 +15,46 @@ const ItemListContainer = (props) => {
     const classes = useStyles();
 
     const [itemsList, setItemsList] = useState([]);
-    const [filter, setFilter] = useState(undefined);
 
-    const filterData = (allItems) => {
-        const filteredData = allItems.filter(item => item.category == categoryId);
-        const data = filter !== undefined ? filteredData : allItems;
-        return data
+    const filterData = (filter) => {
+        console.log(filter);
+        const filteredData = database.collection("items").where("category", "==", categoryId)
+        filter && filteredData.get().then((querySnapshot) => {
+            if(querySnapshot.size === 0) {
+                console.log('No hay resultados.');
+            }
+            const data = querySnapshot.docs.map(doc => { 
+                const item = {
+                    id: doc.id, 
+                    ...doc.data()
+                }
+                console.log(item);
+                return item
+            });
+            setItemsList(data)
+        })
     }
 
     const getList = () => {
-        const itemsPromise = new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(products)
-            }, 2000);
-        })
 
-        
-        itemsPromise.then((items)=> {
-            setItemsList(items)
+        const itemsCollection = database.collection("items");
+        itemsCollection.get().then((querySnapshot) => {
+            if(querySnapshot.size === 0) {
+                console.log('No hay resultados.');
+            }
+            const data = querySnapshot.docs.map(doc => { 
+                const item = {
+                    id: doc.id, 
+                    ...doc.data()
+                }
+                console.log(item);
+                return item
+            });
+            setItemsList(data)
+        }).catch((error) => {
+            console.log(error);
+        }).finally(()=>{
+            // podría setear el loading a false, iniciando en true
         })
     }
 
@@ -41,12 +63,17 @@ const ItemListContainer = (props) => {
     }, [])
 
     useEffect(()=> {
-        setFilter(categoryId);
+        categoryId ? filterData(categoryId) : getList()
     }, [categoryId])
 
     return (
         <Container className={classes.container}>
-            <ItemList itemsList={filterData(itemsList)} />
+            { itemsList.length > 0 ?
+                <ItemList itemsList={itemsList} /> :
+                <div>
+                    No hay productos disponibles
+                </div>
+            }
         </Container>
     )
 }

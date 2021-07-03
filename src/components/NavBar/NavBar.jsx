@@ -16,7 +16,7 @@ import CarWidget from './components/CarWidget';
 import NavBarStyles from './NavBarStyles';
 import NavBarMobile from './components/NavBarMobile';
 
-import { CartContext } from '../../context/CartContext';
+import { CartContext } from '../../Context/CartContext';
 
 
 const categories = [

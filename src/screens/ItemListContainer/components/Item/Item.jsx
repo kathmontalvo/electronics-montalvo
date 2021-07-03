@@ -37,7 +37,7 @@ const Item = (props) => {
                         { description }
                     </Typography>
                     <Typography variant="h4">
-                        { price }
+                        ${ price }
                     </Typography>
                 </CardContent>
             </Card>

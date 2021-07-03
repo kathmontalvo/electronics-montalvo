@@ -6,7 +6,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 
 import itemDetailContainerStyles from './ItemDetailContainerStyles'
 import ItemDetail from './components/ItemDetail/ItemDetail';
-import products from '../../services/service'
+import { database } from '../../Firebase/firebase';
 
 const useStyles = makeStyles(theme => itemDetailContainerStyles(theme))
 
@@ -18,16 +18,20 @@ const ItemDetailContainer = () => {
     const [itemInfo, setItemInfo] = useState(undefined);
 
     const getItem = () => {
-        const itemsPromise = new Promise((resolve, reject) => {
-            setTimeout(() => {
-                const productData = products.filter(product => product.id == itemId)
-                const [ data ] = productData;
-                resolve(data)
-            }, 2000);
-        })
+        const itemDoc = database.collection("items").doc(itemId);
 
-        itemsPromise.then((data)=> {
-            setItemInfo(data)
+        itemDoc.get().then((doc)=> {
+            if(!doc.exists) {
+                console.log('Item no existe.');
+            }
+            setItemInfo({
+                id: doc.id,
+                ...doc.data()
+            })
+        }).catch((error) => {
+            console.log(`Error: ${error}`);
+        }).finally(() => {
+            // setear loader a false
         })
     }
 
