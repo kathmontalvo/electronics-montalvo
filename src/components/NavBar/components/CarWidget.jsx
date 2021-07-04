@@ -11,7 +11,7 @@ const CarWidget = (props) => {
     const { items } = props;
     const [productsQty, setProductsQty] = useState(0);
 
-    const qty = (items) => items.reduce((prev, next) => prev.qty + next.qty);
+    const qty = (items) => items.map(item => item.qty).reduce((prev, next) => prev + next);
 
     const setNewProducts = (products) => {
         products.length === 1 ?
@@ -24,6 +24,7 @@ const CarWidget = (props) => {
     }
 
     useEffect(() => {
+        console.log(items);
         items.length > 0 && setNewProducts(items)
     }, [items])
 

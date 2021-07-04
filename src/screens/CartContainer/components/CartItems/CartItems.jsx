@@ -1,51 +1,59 @@
 import React, { useEffect, useState } from 'react'
-import CartCard from '../CartCard/CartCard';
 import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core';
+import Button from '@material-ui/core/Button'
+import { DeleteForever } from '@material-ui/icons';
+import CartCard from '../CartCard/CartCard';
 import CartItemStyles from './CartItemStyles';
 
 const useStyles = makeStyles(theme => CartItemStyles(theme))
 
 const CartItem = (props) => {
 
-    const { products } = props;
+    const { products, onRemove, clear } = props;
     const [productsList, setProductsList] = useState(undefined)
     const [productsQty, setProductsQty] = useState(0)
     const [productsPrice, setProductsPrice] = useState(0)
 
     const classes = useStyles()
 
-    const totalQty = (items) => items.reduce((prev, next) => prev.qty + next.qty);
-    const totalPrice = (items) => items.reduce((prev, next) => +prev.item.price*prev.qty + +next.item.price*next.qty);
-    
-    const getNewProductsQty = (products) => {
-        products.length === 1 ?
-        setProductsQty(products[0].qty) :
-        setProductsQty(totalQty(products))
+    const getNewProductsQty = (items) => {
+        const totalQty = items.map(item => item.qty).reduce((prev, next) => prev + next);
+        setProductsQty(totalQty)
     }
 
-    const getNewProductsPrice = (products) => {
-        products.length === 1 ?
-        setProductsPrice(products[0].item.price) :
-        setProductsPrice(totalPrice(products))
+    const getNewProductsPrice = (items) => {
+        const totalPrice = items.map(item => item.item.price * item.qty).reduce((prev, next) => prev + next);
+        setProductsPrice(totalPrice)
     }
 
     const setNewData = (products) => {
-        getNewProductsQty(products)
-        getNewProductsPrice(products)
+        products.length === 0 ? setProductsQty(0) : getNewProductsQty(products)
+        products.length === 0 ? setProductsPrice(0) : getNewProductsPrice(products)
         setProductsList(products)
     }
 
     useEffect(() => {
-        products.length > 0 && setNewData(products)
+        products.length >= 0 && setNewData(products)
     }, [products])
 
     return (
-        productsList ?
+        productsList && productsList.length > 0 ?
         <div className={classes.cardsContainer}>
            { productsList.map((product) => 
-                    <CartCard {...product} />
+                    { console.log(product)
+                        return (<CartCard 
+                        {...product} 
+                        onRemove = {onRemove}
+                    />)}
             ) }
+            <Button
+                variant="outlined"
+                startIcon={<DeleteForever />}
+                onClick={() => clear() }
+            >
+                Eliminar todos los productos
+            </Button>
             Total de items: { productsQty }
             Precio total: { productsPrice }
         </div> :

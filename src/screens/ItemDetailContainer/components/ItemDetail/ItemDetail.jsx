@@ -13,12 +13,12 @@ const ItemDetail = (props) => {
 
     const classes = useStyles();
     const history = useHistory();
-    const { items, addItem, removeItem, isInCart } = useContext(CartContext);
+    const { items, addItem, removeItem } = useContext(CartContext);
 
     const { id: itemId, img, price, title, description, stock } = props;
     
     const [confirmation, setConfirmation] = useState(false)
-    const [initialValue, setInitialValue] = useState("1")
+    const [initialValue, setInitialValue] = useState(1)
 
 
     const addItemToCart = (qty) => {

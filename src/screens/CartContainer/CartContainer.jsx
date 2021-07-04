@@ -13,8 +13,8 @@ const useStyles = makeStyles(theme => CartContainerStyles(theme))
 const CartContainer = () => {
     const classes = useStyles();
 
-    const [products, setProducts] = useState(undefined);
-    const { items, addItem, removeItem, isInCart } = useContext(CartContext);
+    const [products, setProducts] = useState([]);
+    const { items, removeItem, clear } = useContext(CartContext);
 
     useEffect(() => {
         setProducts(items)
@@ -25,8 +25,12 @@ const CartContainer = () => {
     return (
         <Container className={classes.root}>
             {
-                products ? 
-                <CartItems products={products} /> :
+                products.length >= 0 ? 
+                <CartItems 
+                    products={products} 
+                    onRemove={removeItem} 
+                    clear={clear}
+                /> :
                 <section className={classes.progressContainer}>
                     <CircularProgress />
                 </section>            

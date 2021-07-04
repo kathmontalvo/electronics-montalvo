@@ -2,14 +2,19 @@ import React from 'react'
 import { Card, CardContent, CardMedia, makeStyles, Typography } from '@material-ui/core'
 import CartCardStyles from './CartCardStyles';
 import ItemCount from '../../../../components/ItemCount/ItemCount'
+import { useEffect } from 'react';
 
 
 const useStyles = makeStyles((theme) => CartCardStyles(theme))
 
 const CartCard = (props) => {
 
-    const { item, qty } = props;
+    const { item, qty, onRemove } = props;
     const classes = useStyles();
+
+    useEffect(() => {
+        console.log(item, qty);
+    }, [])
 
     return (
         <Card className={classes.root}>
@@ -26,6 +31,9 @@ const CartCard = (props) => {
                     <Typography variant="subtitle1" color="textSecondary">
                         {item.description}
                     </Typography>
+                    <Typography variant="body1">
+                        ${item.price}
+                    </Typography>
                 </CardContent>
             </div>
             <div className={classes.details}>
@@ -33,8 +41,7 @@ const CartCard = (props) => {
                     stock={item.stock} 
                     initial={qty} 
                     currentCart={true} 
-                    onAdd={() => console.log('agregar')} 
-                    onRemove={() => console.log('delete')}     
+                    onRemove={() => onRemove(item.id)}     
                 />
             </div>
         </Card>

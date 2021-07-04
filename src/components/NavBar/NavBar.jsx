@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 
 import { Link } from 'react-router-dom'
 
-import clsx from 'clsx';
 import AppBar from '@material-ui/core/AppBar';
 import Container from '@material-ui/core/Container';
 import Toolbar from '@material-ui/core/Toolbar';

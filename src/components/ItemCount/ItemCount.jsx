@@ -18,7 +18,7 @@ const ItemCount = (props) => {
     const classes = useStyles();
 
     const { stock, initial, onAdd, onRemove, currentCart=false } = props;
-    const [counter, setCounter] = useState(Number(initial));
+    const [counter, setCounter] = useState(initial);
 
     const increment = () => {
         counter < stock && setCounter(counter + 1);
@@ -30,6 +30,10 @@ const ItemCount = (props) => {
     useEffect(() => {
         counter <= 0 && onRemove()
     }, [counter])
+
+    useEffect(() => {
+        currentCart && setCounter(initial)
+    }, [initial])
 
     return (
         <Card className={classes.card} variant="outlined">
@@ -71,7 +75,7 @@ const ItemCount = (props) => {
                         startIcon={<Delete />}
                         className={classes.secondaryButton}
                         disabled={ counter === 0 ? true : false}
-                        onClick={ () => onRemove() }
+                        onClick={ onRemove }
                     >
                         Eliminar producto
                     </Button>
