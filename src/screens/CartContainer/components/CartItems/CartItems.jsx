@@ -10,10 +10,8 @@ const useStyles = makeStyles(theme => CartItemStyles(theme))
 
 const CartItem = (props) => {
 
-    const { products, onRemove, clear } = props;
+    const { products, onRemove, clear, productsQty, setProductsQty, productsPrice, setProductsPrice } = props;
     const [productsList, setProductsList] = useState(undefined)
-    const [productsQty, setProductsQty] = useState(0)
-    const [productsPrice, setProductsPrice] = useState(0)
 
     const classes = useStyles()
 
