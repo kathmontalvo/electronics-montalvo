@@ -24,6 +24,8 @@ Electronics es una tienda e-commerce de productos electrónicos para uso persona
 
 ## Demo 
 
+Se puede ver en el siguiente enlace: [Ver demo el vivo](https://60ffaa243a48f485c6841dfa--thirsty-fermat-cb7a49.netlify.app/)
+ 
 ### Desktop
 ![Gif animado - Demostración del funcionamiento de la aplicación en versión escritorio](https://raw.githubusercontent.com/kathmontalvo/electronics-montalvo/master/public/assets/demo/electronics-desktop.gif)
 
