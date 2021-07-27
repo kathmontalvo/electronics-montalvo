@@ -15,7 +15,7 @@ const ItemCountStyles = (theme) => {
         },
         cardButtons: {
             justifyContent: 'space-between',
-            padding: '6px 16px',
+            padding: '16px',
         },
         buttonIcon: {
             fontSize: '16px',

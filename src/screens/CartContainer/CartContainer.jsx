@@ -114,7 +114,7 @@ const CartContainer = () => {
                 {
                     products && products.length > 0 ?
                         <Grid container>
-                            <Grid container item xs={12} lg={7}>
+                            <Grid container item xs={12} lg={7} className={classes.gridCol}>
                                 <CartItems 
                                     products={products} 
                                     onRemove={removeItem} 
@@ -125,7 +125,7 @@ const CartContainer = () => {
                                     setProductsPrice={setProductsPrice}
                                 /> 
                             </Grid> 
-                            <Grid container item xs={12} lg={5}>
+                            <Grid container item xs={12} lg={5} className={classes.gridCol}>
                                 <OrderForm newOrder={newOrder} />
                             </Grid>
                         </Grid> :

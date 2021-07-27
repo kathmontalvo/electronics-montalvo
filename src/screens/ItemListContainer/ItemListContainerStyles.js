@@ -8,9 +8,12 @@ export const itemListContainerStyles = (theme) => {
             backgroundColor: '#E0FBFC',
             display: 'flex',
             minHeight: 'calc(100vh - 64px)',
-            padding: '24px',
+            padding: '24px 48px',
             '& p': {
                 ...commonStyles,
+            },
+            [theme.breakpoints.up('md')]: {
+                padding: '24px',
             },
         },
         progressContainer: {

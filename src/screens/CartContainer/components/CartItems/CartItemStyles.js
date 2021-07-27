@@ -2,7 +2,8 @@ const CartItemStyles = (theme) => {
     return ({
         cardsContainer: {
             display: 'flex',
-            flexDirection: 'column'
+            flexDirection: 'column',
+            width: '100%'
         },
         progressContainer: {
             display: 'flex',
@@ -11,6 +12,10 @@ const CartItemStyles = (theme) => {
             justifyContent: 'center',
             alignItems: 'center'
         },
+        paper: {
+            margin: '24px 0',
+            padding: '16px'
+        }
     })
 }
 

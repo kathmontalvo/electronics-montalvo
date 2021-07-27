@@ -3,11 +3,13 @@ const OrderSuccessfulStyles = (theme) => {
         root: {
             display: 'flex',
             flexDirection: 'column',
-            marginTop: '24px',
+            marginTop: '48px',
             textAlign: 'center',
+            padding: '0 48px',
             [theme.breakpoints.up('md')]: {
                 minHeight: 'calc(100vh - 100px)',
                 marginTop: '72px',
+                padding: '24px'
             },
         },
         btn: {
