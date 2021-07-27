@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
 
 import Container from '@material-ui/core/Container';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core';
+import { Link, useHistory } from "react-router-dom";
 
 import CartContainerStyles from './CartContainerSyles'
 import { CartContext } from '../../Context/CartContext';
@@ -18,6 +18,7 @@ const useStyles = makeStyles(theme => CartContainerStyles(theme))
 
 const CartContainer = () => {
     const classes = useStyles();
+    let history = useHistory();
 
     const [products, setProducts] = useState([]);
     const [productsQty, setProductsQty] = useState(0)
@@ -34,7 +35,7 @@ const CartContainer = () => {
             if(prev>next) return 1;
             return 0;
         })
-        console.log(products);
+
         const itemsToUpdate = database.collection("items")
         .where(firebase.firestore.FieldPath.documentId(), 'in', products.map(i => i.item.id))
         
@@ -46,21 +47,25 @@ const CartContainer = () => {
             querySnapshot.docs.forEach((docSnapshot, idx) => {
 
                 const docsData = docSnapshot.data()
-                console.log(docsData, products[idx]);
 
                 if(docsData.stock >= products[idx].qty) {
                     batch.update(docSnapshot.ref, { stock: docsData.stock - products[idx].qty});
                 } else {
                     outOfStock.push({...docsData, id: docSnapshot.id});
-                    console.log(outOfStock);
+                    console.log('no hay stock', outOfStock);
                 }
             })
             if(outOfStock.length === 0) {
-                const orders = database.collection("orders")
-
-                orders.add(orderData).then(({id}) => {
-                    console.log('nueva orden creada');
-                    console.log(id);
+                const newOrderRef = database.collection("orders").doc();
+                batch.set(newOrderRef, orderData)
+                batch.commit().then(()=> {
+                    database.collection("orders")
+                    .orderBy("date", "desc").limit(1)
+                    .get().then(querySnapshot => {
+                        const orderId = querySnapshot.docs[0].id;
+                        history.push(`/order/${orderId}`);
+                        clear()
+                    })
                 })
             }
         })
@@ -77,7 +82,7 @@ const CartContainer = () => {
         }
 
         const newItems = products.map((product) => {
-            const { item, qty } = product
+            const { item, qty } = product;
             return {
                 item: {
                     id: item.id,
@@ -101,35 +106,38 @@ const CartContainer = () => {
 
     useEffect(() => {
         setProducts(items)
-        console.log(items);
     }, [items])
     
-    
     return (
-        <Container className={classes.root}>
-            {
-                products.length >= 0 ? 
-                <Grid container>
-                    <Grid container item xs={12} lg={7}>
-                        <CartItems 
-                            products={products} 
-                            onRemove={removeItem} 
-                            clear={clear}
-                            productsQty={productsQty}
-                            setProductsQty={setProductsQty}
-                            productsPrice={productsPrice}
-                            setProductsPrice={setProductsPrice}
-                        /> 
-                    </Grid> 
-                    <Grid container item xs={12} lg={5}>
-                        <OrderForm newOrder={newOrder} />
-                    </Grid>
-                </Grid> :
-                <section className={classes.progressContainer}>
-                    <CircularProgress />
-                </section>            
-            }
-        </Container>
+        <>
+            <Container className={classes.root}>
+                {
+                    products && products.length > 0 ?
+                        <Grid container>
+                            <Grid container item xs={12} lg={7}>
+                                <CartItems 
+                                    products={products} 
+                                    onRemove={removeItem} 
+                                    clear={clear}
+                                    productsQty={productsQty}
+                                    setProductsQty={setProductsQty}
+                                    productsPrice={productsPrice}
+                                    setProductsPrice={setProductsPrice}
+                                /> 
+                            </Grid> 
+                            <Grid container item xs={12} lg={5}>
+                                <OrderForm newOrder={newOrder} />
+                            </Grid>
+                        </Grid> :
+                        <div>
+                            No has agregado productos al carrito.
+                            <Link to="/">
+                                Regresar a Inicio
+                            </Link>
+                        </div>            
+                }
+            </Container>
+        </>
     )
 }
 

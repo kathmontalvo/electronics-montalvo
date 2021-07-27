@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import ItemListContainer from '../screens/ItemListContainer/ItemListContainer'
 import ItemDetailContainer from '../screens/ItemDetailContainer/ItemDetailContainer'
 import CartContainer from '../screens/CartContainer/CartContainer'
+import OrderSuccessful from '../screens/OrderSuccessful/OrderSuccessful';
 
 const Router = () => {
     return (
@@ -18,6 +19,9 @@ const Router = () => {
             </Route>
             <Route path="/cart">
                 <CartContainer />
+            </Route>
+            <Route path="/order/:orderId">
+                <OrderSuccessful />
             </Route>
         </Switch>
     )

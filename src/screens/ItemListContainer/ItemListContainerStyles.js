@@ -12,7 +12,13 @@ export const itemListContainerStyles = (theme) => {
             '& p': {
                 ...commonStyles,
             },
+        },
+        progressContainer: {
+            display: 'flex',
+            width: '100%',
+            height: '350px',
+            justifyContent: 'center',
+            alignItems: 'center'
         }
-
     })
 }

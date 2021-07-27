@@ -7,13 +7,6 @@ const CartConainerSyles = (theme) => {
                 minHeight: 'calc(100vh - 100px)',
             }
         },
-        progressContainer: {
-            display: 'flex',
-            width: '100%',
-            height: '350px',
-            justifyContent: 'center',
-            alignItems: 'center'
-        },
     })
 }
 

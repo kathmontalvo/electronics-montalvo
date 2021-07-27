@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -6,6 +8,7 @@ import { itemListContainerStyles } from './ItemListContainerStyles';
 import ItemList from './components/ItemList/ItemList';
 import Container from '@material-ui/core/Container'
 import { database } from '../../Firebase/firebase';
+import { CircularProgress } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => itemListContainerStyles(theme))
 
@@ -15,20 +18,19 @@ const ItemListContainer = (props) => {
     const classes = useStyles();
 
     const [itemsList, setItemsList] = useState([]);
+    const [loader, setLoader] = useState(true)
 
     const filterData = (filter) => {
-        console.log(filter);
         const filteredData = database.collection("items").where("category", "==", categoryId)
         filter && filteredData.get().then((querySnapshot) => {
             if(querySnapshot.size === 0) {
-                console.log('No hay resultados.');
+                setItemsList([])
             }
             const data = querySnapshot.docs.map(doc => { 
                 const item = {
                     id: doc.id, 
                     ...doc.data()
                 }
-                console.log(item);
                 return item
             });
             setItemsList(data)
@@ -40,21 +42,20 @@ const ItemListContainer = (props) => {
         const itemsCollection = database.collection("items");
         itemsCollection.get().then((querySnapshot) => {
             if(querySnapshot.size === 0) {
-                console.log('No hay resultados.');
+                setItemsList([])
             }
             const data = querySnapshot.docs.map(doc => { 
                 const item = {
                     id: doc.id, 
                     ...doc.data()
                 }
-                console.log(item);
                 return item
             });
             setItemsList(data)
         }).catch((error) => {
             console.log(error);
         }).finally(()=>{
-            // podría setear el loading a false, iniciando en true
+            setLoader(false)
         })
     }
 
@@ -68,11 +69,12 @@ const ItemListContainer = (props) => {
 
     return (
         <Container className={classes.container}>
-            { itemsList.length > 0 ?
-                <ItemList itemsList={itemsList} /> :
-                <div>
-                    No hay productos disponibles
-                </div>
+            {loader ?
+                <section className={classes.progressContainer}>
+                    <CircularProgress />
+                </section>
+            : 
+                <ItemList itemsList={itemsList} /> 
             }
         </Container>
     )

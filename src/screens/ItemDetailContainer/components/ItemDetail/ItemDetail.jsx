@@ -1,4 +1,4 @@
-import React,  { useState, useEffect, useContext } from 'react';
+import React,  { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Typography, Grid, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
@@ -13,7 +13,7 @@ const ItemDetail = (props) => {
 
     const classes = useStyles();
     const history = useHistory();
-    const { items, addItem, removeItem } = useContext(CartContext);
+    const { addItem, removeItem } = useContext(CartContext);
 
     const { id: itemId, img, price, title, description, stock } = props;
     
@@ -39,10 +39,6 @@ const ItemDetail = (props) => {
         setConfirmation(false)
     }
 
-    useEffect(() => {
-        console.log('items:', items);
-    }, [items])
-
     return (
         <Grid container spacing={3} className={classes.productContainer}>
             <Grid 
@@ -64,7 +60,7 @@ const ItemDetail = (props) => {
                         {description}
                     </Typography>
                     <Typography variant="h6">
-                        {price}
+                        $ {price}
                     </Typography>
                 </Box>
                 { !confirmation ? 

@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { makeStyles } from '@material-ui/core';
+import { CircularProgress, makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button'
 import { DeleteForever } from '@material-ui/icons';
 import CartCard from '../CartCard/CartCard';
@@ -36,14 +37,12 @@ const CartItem = (props) => {
     }, [products])
 
     return (
-        productsList && productsList.length > 0 ?
+        productsList ?
         <div className={classes.cardsContainer}>
-           { productsList.map((product) => 
-                    { console.log(product)
-                        return (<CartCard 
+           { productsList.map((product) => <CartCard 
                         {...product} 
                         onRemove = {onRemove}
-                    />)}
+                    />
             ) }
             <Button
                 variant="outlined"
@@ -55,12 +54,9 @@ const CartItem = (props) => {
             Total de items: { productsQty }
             Precio total: { productsPrice }
         </div> :
-        <div>
-            No has agregado productos al carrito.
-            <Link to="/">
-                Regresar a Inicio
-            </Link>
-        </div>
+        <section className={classes.progressContainer}>
+            <CircularProgress />
+        </section>
     )
 }
 
