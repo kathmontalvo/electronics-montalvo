@@ -10,6 +10,11 @@
 
 Para realizar el proyecto Electronics, se ha utilizado:
 1. React (Create React App)
+    * Functional components
+    * Routing
+    * Hooks
+    * Context
+
 2. Material UI
 3. Firebase
 
@@ -20,7 +25,7 @@ Electronics es una tienda e-commerce de productos electrónicos para uso persona
 ## Demo 
 
 ### Desktop
-![Gif animado - Demostración del funcionamiento de la aplicación en versión escritorio](https://raw.githubusercontent.com/kathmontalvo/electronics-montalvo/master/public/assets/demo/entrega-1-desktop.gif)
+![Gif animado - Demostración del funcionamiento de la aplicación en versión escritorio](https://raw.githubusercontent.com/kathmontalvo/electronics-montalvo/master/public/assets/demo/electronics-desktop.gif)
 
 ### Mobile
-![Gif animado - Demostración del funcionamiento de la aplicación en versión móvil](https://raw.githubusercontent.com/kathmontalvo/electronics-montalvo/master/public/assets/demo/entrega-1-mobile.gif)
+![Gif animado - Demostración del funcionamiento de la aplicación en versión móvil](https://raw.githubusercontent.com/kathmontalvo/electronics-montalvo/master/public/assets/demo/electronics-mobile.gif)
