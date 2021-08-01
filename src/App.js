@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar.jsx';
-import Router from './Router/Router.jsx';
-import CartProvider from './Context/CartContext'
+import Router from './router/Router.jsx';
+import CartProvider from './context/CartContext'
 
 const App = () => {
   return (

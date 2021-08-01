@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core';
 import { Link, useHistory } from "react-router-dom";
 
 import CartContainerStyles from './CartContainerSyles'
-import { CartContext } from '../../Context/CartContext';
+import { CartContext } from '../../context/CartContext';
 import CartItems from './components/CartItems/CartItems';
 import OrderForm from './components/OrderForm/OrderForm';
 
